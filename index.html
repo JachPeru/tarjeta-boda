@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Visor de PDF Responsive con Música</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: sans-serif;
+    }
+
+    .pdf-container {
+      width: 100%;
+      height: 100vh;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Overlay de inicio */
+    #music-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    #music-overlay button {
+      padding: 12px 24px;
+      font-size: 18px;
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      background-color: #ff4081;
+      color: white;
+      margin-top: 20px;
+    }
+
+    #music-overlay h2 {
+      margin: 0;
+      font-size: 24px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="pdf-container">
+  <iframe src="TARJETA DOS.pdf" type="application/pdf">
+    Tu navegador no soporta iframes.
+  </iframe>
+</div>
+
+<!-- Overlay para reproducir música -->
+<div id="music-overlay">
+  <h2>🎵 Presiona "Aceptar" para reproducir la música de fondo</h2>
+  <button id="accept-music">Aceptar</button>
+</div>
+
+<!-- Música de fondo -->
+<audio id="bg-music" src="Reik.mp3" loop></audio>
+
+<script>
+  const musica = document.getElementById('bg-music');
+  const overlay = document.getElementById('music-overlay');
+  const btn = document.getElementById('accept-music');
+
+  btn.addEventListener('click', () => {
+    musica.play().then(() => {
+      console.log('🎵 Música iniciada.');
+      overlay.style.display = 'none'; // Ocultar overlay
+    }).catch(err => {
+      console.error('No se pudo reproducir la música:', err);
+    });
+  });
+</script>
+
+</body>
+</html>
